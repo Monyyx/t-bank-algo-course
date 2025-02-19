@@ -1,46 +1,31 @@
 #include <iostream>
 #include <vector>
+#include <algorithm>
 #define ll long long
 #define ld long double
 #define vector std::vector
 #define string std::string
 
-string binSearch(vector<ll> input, ll num){
-  ll left = 0;
-  ll right = input.size() - 1;
-  
-  while (left <= right) {
-    ll mid = left + (right - left) / 2;
-    if (input[mid] == num) {
-      return "YES";
-    } else if (input[mid] > num) {
-      right = mid - 1;
-    } else {
-      left = mid + 1;
-    }
-  }
-
-  return "NO";
-}
-
 int main(){
-  std::ios::sync_with_stdio(false);
-  std::cin.tie(nullptr);
+    std::ios::sync_with_stdio(false);
+    std::cin.tie(nullptr);
 
-  ll n, k;
-  std::cin >> n >> k;
-  vector<ll> input(n);
-  vector<ll> find(k);
-
-  for (ll i = 0; i < n; ++i) {
-    std::cin >> input[i];
-  }
-
-  for (ll i = 0; i < k; ++i) {
-    std::cin >> find[i];
-  }
-
-  for (ll i = 0; i < k; ++i) {
-    std::cout << binSearch(input, find[i]) << '\n';
-  }
+    int n, k;
+    std::cin >> n >> k;
+    
+    vector<long long> arr(n);
+    for (int i = 0; i < n; i++) {
+        std::cin >> arr[i];
+    }
+    
+    while (k--) {
+        long long x;
+        std::cin >> x;
+        if (std::binary_search(arr.begin(), arr.end(), x))
+            std::cout << "YES" << "\n";
+        else
+            std::cout << "NO" << "\n";
+    }
+    
+    return 0;
 }
