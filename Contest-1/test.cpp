@@ -1,80 +1,66 @@
-// C++ program for the implementation of merge sort
 #include <iostream>
 #include <vector>
-
 using namespace std;
+#define ll  long long
 
-// Merges two subarrays of vec.
-// First subarray is vec[left..mid]
-// Second subarray is vec[mid+1..right]
-void merge(vector<int>& vec, int left, int mid, int right) {
-    int i, j, k;
+ll merge(vector<ll>& vec, int left, int mid, int right) {
     int n1 = mid - left + 1;
     int n2 = right - mid;
 
-    // Create temporary vectors
-    vector<int> leftVec(n1), rightVec(n2);
+    vector<ll> leftVec(n1), rightVec(n2);
 
-    // Copy data to temporary vectors
-    for (i = 0; i < n1; i++)
+    for (int i = 0; i < n1; i++)
         leftVec[i] = vec[left + i];
-    for (j = 0; j < n2; j++)
+
+    for (int j = 0; j < n2; j++)
         rightVec[j] = vec[mid + 1 + j];
 
-    // Merge the temporary vectors back into vec[left..right]
-    i = 0;
-    j = 0;
-    k = left;
+    int i = 0, j = 0, k = left;
+    ll count = 0;
+
     while (i < n1 && j < n2) {
         if (leftVec[i] <= rightVec[j]) {
-            vec[k] = leftVec[i];
-            i++;
+            vec[k++] = leftVec[i++];
         } else {
-            vec[k] = rightVec[j];
-            j++;
+            vec[k++] = rightVec[j++];
+            count += (n1 - i); // count of other elements
         }
-        k++;
     }
 
-    // Copy the remaining elements of leftVec[], if any
-    while (i < n1) {
-        vec[k] = leftVec[i];
-        i++;
-        k++;
-    }
+    while (i < n1)
+        vec[k++] = leftVec[i++];
 
-    // Copy the remaining elements of rightVec[], if any
-    while (j < n2) {
-        vec[k] = rightVec[j];
-        j++;
-        k++;
-    }
+    while (j < n2)
+        vec[k++] = rightVec[j++];
+
+    return count;
 }
 
-// The subarray to be sorted is in the index range [left..right]
-void mergeSort(vector<int>& vec, int left, int right) {
+ll mergeSort(vector<ll>& vec, int left, int right) {
+    ll count = 0;
     if (left < right) {
-      
-        // Calculate the midpoint
         int mid = left + (right - left) / 2;
-
-        // Sort first and second halves
-        mergeSort(vec, left, mid);
-        mergeSort(vec, mid + 1, right);
-
-        // Merge the sorted halves
-        merge(vec, left, mid, right);
+        count += mergeSort(vec, left, mid);
+        count += mergeSort(vec, mid + 1, right);
+        count += merge(vec, left, mid, right);
     }
+    return count;
 }
 
 int main() {
-    vector<int> vec = {12, 11, 13, 5, 6, 7};
-    int n = vec.size();
+    int n;
+    cin >> n;
+    vector<ll> vec(n);
 
-    // Sorting vec using mergesort
-    mergeSort(vec, 0, n - 1);
+    for (int i = 0; i < n; i++)
+        cin >> vec[i];
 
-    for (auto i: vec)
-        cout << i << " ";
+    ll inversions = mergeSort(vec, 0, n - 1);
+
+    cout << inversions << "\n";
+    for (ll num : vec)
+        cout << num << " ";
+    cout << "\n";
+
     return 0;
 }

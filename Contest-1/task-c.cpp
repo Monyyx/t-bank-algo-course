@@ -1,42 +1,31 @@
 #include <iostream>
-#include <vector>
-#include <string>
-#define ll long long
-#define ld long double
+
 using namespace std;
 
+int query(int x) {
+    cout << x << '\n';
+    cout.flush();    
+    
+    string response;
+    cin >> response;  
+    return (response == ">=");
+}
 
 int main() {
-  ios::sync_with_stdio(false);
-  cin.tie(nullptr);
-  ll max;
-  ll min  = 1;
-  ll mid;
-  cin >> max;
-
-
-  while (max > min){
-    mid = (min + max + 1) / 2;
-    cout << mid  << '\n';
-    fflush(stdout);
-    string input;
-    cin >> input;
-
-    if (input == "<") {
-      max = mid - 1;
-    } 
-    else {
-      min = mid;
+    int n;
+    cin >> n; 
+    
+    int L = 1, R = n;
+    while (L < R) {
+        int mid = (L + R + 1) / 2;
+        if (query(mid)) {
+            L = mid;  // x >= mid
+        } else {
+            R = mid - 1; // x < mid
+        }
     }
-  }
 
-  cout << "! " << min;
-  return 0;
+    cout << "! " << L << '\n';
+    cout.flush(); 
+    return 0;
 }
-/*
-20
-5 <
-3 >=
-4 >=
-! 4
-*/
