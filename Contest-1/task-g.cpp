@@ -1,18 +1,23 @@
-#include <iomanip>
-#include <iostream>
-#include <vector>
-#include <cmath>
+#include <bits/stdc++.h>
 #define ll long long
-#define ld long double
 using namespace std;
 
+int main(){
+  ll n;
+  vector<ll> mas;
+  cin >> n;
+  mas.resize(n);
 
-int main() {
-  ll count;
-  cin >> count;
-  for(ll i = count; i > 0; i--){
-    if (i % 2 == )
-    cout << i << " ";
+  for (int i=0;i<n;i++){ 
+    mas[i] = i + 1;
   }
-  return 0;
+  for (int i = 2; i < n; i++){
+    swap(mas[i], mas[i / 2]);
+  }
+  for (int i = 0 ; i < n ; i++)
+    cout << mas[i] << " ";
+  
+
+  
+  return 0 ;
 }
