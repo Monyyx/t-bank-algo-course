@@ -3,75 +3,54 @@
 #define ld long double
 using namespace std;
 
-void heapDown(vector<ll>& heap, ll i){
-  ll size = heap.size();
-  
-  while (true){
-    ll left = 2 * i + 1;
-    ll right = 2 * i + 2;
-    ll large = i;
-
-    if (left < size && heap[left] > heap[large]){
-      large = left;
-    }
-
-    if (right < size && heap[right] > heap[large]){
-      large = right;
-    }
-
-    if (large != i){
-      swap(heap[i] , heap[large]);
-      i = large;
-    } else break;
-  }
-}
-
-struct myHeap{//2i + 1, 2i + 2, (i - 1) / 2
-  vector<ll> heap;
-
-  void Insert(ll num){
-    heap.push_back(num);
-    ll curr = heap.size() - 1;
-    while (curr != 0) {
-      ll parent = (curr - 1) / 2;
-      if (heap[curr] > heap[parent]){
-        swap(heap[curr], heap[parent]);
-        curr = parent;
-      } else break;
-    }
-  }
-
-  void Extract(){
-    cout << heap[0] << '\n';
-    swap(heap[0], heap[heap.size() - 1]);
-    heap.pop_back();
-    heapDown(heap, 0);
-  }
-
+struct AVL {
+  ll val;
+  AVL* right;
+  AVL* left;
+  AVL(int x, AVL* r = nullptr, AVL* l = nullptr) : val(x), right(r), left(l){};
 };
+
+ll isAVL(AVL* root, ll min_val, ll max_val){
+  if (!root) return 0;
+
+  if (root->val <= min_val || root->val >= max_val) return -1;// check bst
+
+  ll leftheight = isAVL(root->left, min_val, root->val);// check for left subtree
+  if (leftheight == -1) return -1;
+
+  ll rightheight = isAVL(root->right, root->val, max_val);//  check for right subtree
+  if (rightheight == -1) return -1;
+
+  if (abs(leftheight - rightheight) > 1) return -1;// check bst balance
+
+  return max(leftheight, rightheight) + 1;
+}
 
 int main(){
   ios::sync_with_stdio(false);
   cin.tie(nullptr);
   cout.tie(nullptr);
 
-  myHeap heap;
-  ll count, oper, num;
-  cin >> count;
+  ll size, root, left, right;
+  cin >> size >> root;
 
-
-  while (count){
-    cin >> oper;
-    if (oper == 0){
-      cin >> num;
-      heap.Insert(num);
-    } else {
-      heap.Extract();
-    }
-
-    --count;
+  vector<AVL*> nodes(size);
+  for( ll i = 0;i < size; ++i){
+    nodes[i] = new AVL(i);
+  }
+  for (ll i = 0; i < size; ++i){
+    cin >> left >> right;
+      if (left != -1) nodes[i]->left = nodes[left];
+      if (right != -1) nodes[i]->right = nodes[right];
   }
 
+  if (isAVL(nodes[root], -1, size) != -1) {
+    cout << 1 << '\n';
+  }  else {
+    cout << 0 << '\n';
+  }
+
+  for (auto node : nodes) delete node;
 
   return 0;
 }
