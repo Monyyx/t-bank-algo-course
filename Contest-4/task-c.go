@@ -1,11 +1,11 @@
 package main
 
-/*
 import (
 	"fmt"
+	"sort"
 )
 
-func check(length, count int, slice []int) bool {
+func checkD(length, count int, slice []int) bool {
 	cows := 1
 	last_cow := slice[0]
 	for _, v := range slice {
@@ -17,8 +17,8 @@ func check(length, count int, slice []int) bool {
 	return cows >= count
 }
 
-func solve(count int, slice []int) int {
-	/*sort.Slice(slice, func(i, j int) bool {
+func solveD(count int, slice []int) int {
+	sort.Slice(slice, func(i, j int) bool {
 		return slice[i] < slice[j]
 	})
 
@@ -27,7 +27,7 @@ func solve(count int, slice []int) int {
 
 	for r-l > 1 {
 		m := int((l + r) / 2)
-		if check(m, count, slice) {
+		if checkD(m, count, slice) {
 			l = m
 		} else {
 			r = m
@@ -45,6 +45,5 @@ func main() {
 		fmt.Scan(&slice[i])
 	}
 
-	fmt.Println(solve(cows, slice))
+	fmt.Println(solveD(cows, slice))
 }
-*/
