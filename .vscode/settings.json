@@ -1,5 +1,6 @@
 {
   "files.associations": {
     "iostream": "cpp"
-  }
+  },
+  "cmake.sourceDirectory": "/home/n1jke/tbank/Contest-5"
 }

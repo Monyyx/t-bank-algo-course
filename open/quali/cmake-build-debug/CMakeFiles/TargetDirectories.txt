@@ -1,0 +1,3 @@
+/home/n1jke/tbank/open/quali/cmake-build-debug/CMakeFiles/quali.dir
+/home/n1jke/tbank/open/quali/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/n1jke/tbank/open/quali/cmake-build-debug/CMakeFiles/rebuild_cache.dir

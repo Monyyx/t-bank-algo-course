@@ -1,0 +1,3 @@
+/home/n1jke/tbank/Contest-5/cmake-build-debug/CMakeFiles/Contest_5.dir
+/home/n1jke/tbank/Contest-5/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/n1jke/tbank/Contest-5/cmake-build-debug/CMakeFiles/rebuild_cache.dir
